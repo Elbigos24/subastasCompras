@@ -12,6 +12,7 @@ class ComprasSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(UsersSeeder::class);
         $dati1 = new compra();
         $dati1->user_id = 1;
         $dati1->product_id = 1;

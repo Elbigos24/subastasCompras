@@ -14,11 +14,13 @@ class SubastasSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(ProductsSeeder::class);
         $dato1 = new Subasta();
         $dato1->product_id = 1;
         $dato1->start_time = '2024-07-01 10:00:00';
         $dato1->end_time = '2024-07-10 18:00:00';
         $dato1->status = 'active';
+        
         $dato1->save();
     }
 }

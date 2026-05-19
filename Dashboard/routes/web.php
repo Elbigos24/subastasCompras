@@ -10,6 +10,9 @@ use App\Http\Controllers\CompraController;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/docs', function () {
+    return view('docs');
+});
 
 // Dashboard principal
 Route::get('/dashboard', [AdminControler::class, 'index'])->name('dashboard');

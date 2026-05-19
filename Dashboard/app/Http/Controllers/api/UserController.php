@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\api;
-
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        
+        $users = User::all();
+        return response()->json([
+            "data" => $users,
+            "status" => "success"
+        ]);
     }
 
     /**
@@ -20,7 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+       //
     }
 
     /**
@@ -30,10 +34,10 @@ class UserController extends Controller
     {
         $validated=$request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:ussers',
+            'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
         ]);
-        $user = Usser::create([
+        $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => $validated['password'],
@@ -46,7 +50,12 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::all()->find($id);
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+        return response()->json($user);
+
     }
 
     /**
@@ -62,7 +71,17 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+            $validated=$request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+        ]);
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => $validated['password'],
+        ]);
+        return response()->json($user, 201);
     }
 
     /**
@@ -70,7 +89,7 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $user = Usser::find($id);
+        $user = User::find($id);
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }

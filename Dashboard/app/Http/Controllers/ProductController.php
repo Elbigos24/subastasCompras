@@ -17,7 +17,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        $users = Usser::all();
+        $product = product::all();
         return view('Dashboard.products.create', compact('users'));
     }
 
@@ -42,8 +42,8 @@ class ProductController extends Controller
 
     public function edit(product $product)
     {
-        $users = Usser::all();
-        return view('Dashboard.products.edit', compact('product', 'users'));
+        $products = Product::all();
+        return view('Dashboard.products.edit', compact('product', 'products'));
     }
 
     public function update(ProductRequest $request, product $product)

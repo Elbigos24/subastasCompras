@@ -13,7 +13,9 @@ class PujasSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {
+    {   
+        $this->call(UsersSeeder::class);
+        $this->call(SubastasSeeder::class);
         $dato1 = new Puja();
         $dato1->subasta_id = 1;
         $dato1->user_id = 1;
