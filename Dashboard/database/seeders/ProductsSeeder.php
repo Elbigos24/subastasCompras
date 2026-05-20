@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\product;
@@ -14,23 +13,27 @@ class ProductsSeeder extends Seeder
      */
     public function run(): void
     {
-            
-            $dato1 = new product();
-            $dato1->name = 'Reloj de mano';
-            $dato1->description = 'Usado, en buen estado';
-            $dato1->price = 19.99;
-            $dato1->Img = 'producto1.jpg';
-            $dato1->stock = 100;
-            $dato1->user_id = 1;
-            $dato1->save();
-            $dato2 = new product();
-            $dato2->name = 'CONSOLA DE VIDEOJUEGOS';
-            $dato2->description = 'Nuevo, sin usar';
-            $dato2->price = 29.99;
-            $dato2->Img = 'producto2.jpg';
-            $dato2->stock = 50;
-            $dato2->user_id = 1;
-            $dato2->save();
+            Product::create([
+                'name' => 'Reloj de mano',
+                'description' => 'Usado, en buen estado',
+                'price' => 19.99,
+                'Img' => 'producto1.jpg',
+                'stock' => 100,
+                'user_id' => 1,
+                'slug' => 'reloj-de-mano',
+            ]);
+
+            Product::create([
+                'name' => 'CONSOLA DE VIDEOJUEGOS',
+                'description' => 'Nuevo, sin usar',
+                'price' => 29.99,
+                'Img' => 'producto2.jpg',
+                'stock' => 50,
+                'user_id' => 1,
+                'slug' => 'consola-de-videojuegos',
+            ]);
+
+        
         
     }
 }

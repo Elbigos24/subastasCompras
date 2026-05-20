@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->string('Img')->nullable();
+            $table->string('Img');
+            $table->string('slug');
             $table->decimal('price', 8, 2);
             $table->integer('stock');
             $table->foreignId('user_id')->references('id')->on('users');

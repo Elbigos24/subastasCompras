@@ -1,5 +1,19 @@
-export default function Carrito() {
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import CarProduct from "../layouts/CarProduct";
 
+export default function Carrito() {
+        const [data, setData] = useState([]);
+        const navigate = useNavigate();
+        const seguirComprando = () => {
+            navigate("/");
+        }
+    useEffect(() => {
+            if (localStorage.getItem("subastas_cart")) {
+                var items= JSON.parse(localStorage.getItem("subastas_cart") as string);
+                setData(items);
+            }
+        }, [])
     return (
         <>
             {/* Contenido Principal: Carrito de Compras Minimalista */}
@@ -25,53 +39,14 @@ export default function Carrito() {
                                 <span>Total</span>
                             </div>
 
-                            {/* Artículo 1 */}
-                            <div className="d-flex align-items-center justify-content-between border-bottom pb-4 mb-4">
-                                <div className="d-flex align-items-center">
-                                    {/* Miniatura */}
-                                    <div className="bg-light overflow-hidden me-4" style={{ width: '90px', height: '90px', borderRadius: '4px' }}>
-                                        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=200&q=80"
-                                            alt="Leica M6"
-                                            className="w-100 h-100 object-fit-cover"
-                                            style={{ mixBlendMode: 'multiply' }}>
-                                        </img>
-                                    </div>
-                                    {/* Detalles */}
-                                    <div>
-                                        <h3 className="h6 fw-bold mb-1 text-dark" style={{ fontSize: '1rem' }}>001. Leica M6 Cámara</h3>
-                                        <p className="text-muted small mb-0" style={{ fontSize: '0.85rem' }}>Subasta finalizada • ID #8492</p>
-                                        <button className="btn btn-link p-0 text-muted small text-decoration-none mt-2" style={{ fontSize: '0.8rem', border: 'none', background: 'transparent' }}>
-                                            Eliminar
-                                        </button>
-                                    </div>
-                                </div>
-                                {/* Precio */}
-                                <span className="fw-bold text-dark" style={{ fontSize: '1.1rem' }}>$2,100 USD</span>
-                            </div>
+                            {/* Artículos carrito */}
+                            {data.map((item:any) => <CarProduct item={item} key={item.id} />)}
 
-                            {/* Artículo 2 */}
-                            <div className="d-flex align-items-center justify-content-between border-bottom pb-4 mb-4">
-                                <div className="d-flex align-items-center">
-                                    {/* Miniatura */}
-                                    <div className="bg-light overflow-hidden me-4" style={{ width: '90px', height: '90px', borderRadius: '4px' }}>
-                                        <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=200&q=80"
-                                            alt="Reloj"
-                                            className="w-100 h-100 object-fit-cover"
-                                            style={{ mixBlendMode: 'multiply' }}>
-                                        </img>
-                                    </div>
-                                    {/* Detalles */}
-                                    <div>
-                                        <h3 className="h6 fw-bold mb-1 text-dark" style={{ fontSize: '1rem' }}>003. Reloj de Mano 'Luna'</h3>
-                                        <p className="text-muted small mb-0" style={{ fontSize: '0.85rem' }}>Subasta finalizada • ID #3104</p>
-                                        <button className="btn btn-link p-0 text-muted small text-decoration-none mt-2" style={{ fontSize: '0.8rem', border: 'none', background: 'transparent' }}>
-                                            Eliminar
-                                        </button>
-                                    </div>
-                                </div>
-                                {/* Precio */}
-                                <span className="fw-bold text-dark" style={{ fontSize: '1.1rem' }}>$1,400 USD</span>
-                            </div>
+                            <button className="btn w-100 text-white rounded-0 py-3" style={{ backgroundColor: '#000000', fontSize: '0.9rem', fontWeight: '500', border: 'none', transition: 'opacity 0.2s ease' } } onClick={seguirComprando}>
+                                    Seguir comprando
+                                    
+                                </button>
+
                         </div>
 
                         {/* Resumen de Pago (Columna Derecha) */}

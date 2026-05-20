@@ -5,13 +5,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class product extends Model
 {
-    protected $table = 'products';
+    use Sluggable;
+    //protected $table = 'products';
     protected $fillable = [
-        'name', 'description', 'price', 'Img', 'stock', 'user_id',
+        'name',
+        'description',
+        'price',
+        'Img',
+        'stock',
+        'user_id',
+        'slug'
     ];
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'name'
+            ]
+        ];
+    }
 
     public function user()
     {

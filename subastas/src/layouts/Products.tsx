@@ -8,7 +8,7 @@ export default function Products({ item }: Props) {
         <>
             <div className="col-md-4">
                 {/* Enlace envolvente para redirigir a la nueva ventana */}
-                <a href="/Detalles" style={{ textDecoration: 'none', color: 'inherit' }}>
+                <a href={"/Detalles/"+item.slug} style={{ textDecoration: 'none', color: 'inherit' }}>
                     <div className="card border-0 bg-transparent h-100">
                         <div className="ratio ratio-4x3 bg-light overflow-hidden" style={{ borderRadius: '4px' }}>
                             <img src={`${url_assets}/images/${item.Img}`}

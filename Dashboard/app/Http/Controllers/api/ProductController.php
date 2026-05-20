@@ -28,16 +28,17 @@ class ProductController extends Controller
             'description' => $validated['description'] ?? null,
             'price' => $validated['price'],
         ]);
-        return response()->json($poduct, 201);
+        return response()->json(['status' => 'success', 'data' => $Products], 201);
     }
 
     public function show($id)
     {
-        $Products = Product::all()->find($id);;
+        $Products = Product::where('slug', $id)->get()->first();
         if (!$Products) {
             return response()->json(['message' => 'Product not found'], 404);
         }
-        return response()->json($Products);
+        return response()->json(['status' => 'success',
+         'data' => Product::where('slug', $id)->get()->first()]);
     }
 
     public function update(Request $request, $id)
