@@ -1,5 +1,23 @@
-export default function Home() {
+import { useEffect, useState } from "react";
+import Products from "../layouts/Products"
+import axios from "axios";
 
+
+export default function Home() {
+    const [data, setData] = useState([]);
+    const API_URL = import.meta.env.VITE_API_URL;
+    useEffect(() => {
+        getData();
+    }, [])
+    const getData =async () => {
+        await axios.get(API_URL+'/products').then((res:any) => {
+            console.log(res.data);
+            setData(res.data.data);
+        }).catch((err:any) => {
+            console.log(err);
+        })
+
+    }
     return (
         <>
             {/*<!-- Contenido Principal: Sección de Subastas Minimalista -->*/}
@@ -20,77 +38,14 @@ export default function Home() {
                     <div className="row g-4 justify-content-center">
 
                             {/*<!-- Producto 1 -->*/}
-                            <div className="col-md-4">
-                                <div className="card border-0 bg-transparent h-100">
-                                    <div className="ratio ratio-4x3 bg-light overflow-hidden" style={{ borderRadius: '4px' }}>
-                                        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=600&q=80"
-                                            alt="Leica M6"
-                                            className="img-fluid object-fit-cover"
-                                            style={{ mixBlendMode: 'multiply' }}>
-                                        </img>
-                                    </div>
-                                    <div className="pt-3">
-                                        <div className="d-flex justify-content-between align-items-baseline">
-                                            <h3 className="h6 mb-1 fw-bold text-dark" style={{ fontSize: '1rem' }}>001. Leica M6 Cámara</h3>
-                                            <span className="badge bg-dark rounded-0 fw-normal" style={{ fontSize: '0.75rem' }}>Activa</span>
-                                        </div>
-                                        <p className="text-muted small mb-2" style={{ fontSize: '0.85rem', color: '#707070' }}>Edición clásica / Conservación 9.5/10</p>
-                                        <div className="d-flex justify-content-between align-items-center border-top pt-2 mt-1">
-                                            <span className="small text-uppercase tracking-wider text-muted" style={{ fontSize: '0.75rem', letterSpacing: '0.05em' }}>Subasta Actual</span>
-                                            <span className="fw-bold text-dark" style={{ fontSize: '1.1rem' }}>$2,100 USD</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+                           {
+                                data.map((item:any) =><Products item={item} key={item.id}/>) 
+                           }
+                            
                         
 
-                                {/*<!-- Producto 2 -->*/}
-                                <div className="col-md-4">
-                                    <div className="card border-0 bg-transparent h-100">
-                                        <div className="ratio ratio-4x3 bg-light overflow-hidden" style={{ borderRadius: '4px' }}>
-                                            <img src="https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?auto=format&fit=crop&w=600&q=80"
-                                                alt="Set de Jarrones"
-                                                className="img-fluid object-fit-cover"
-                                                style={{ mixBlendMode: 'multiply' }}>
-                                            </img>
-                                        </div>
-                                        <div className="pt-3">
-                                            <div className="d-flex justify-content-between align-items-baseline">
-                                                <h3 className="h6 mb-1 fw-bold text-dark" style={{ fontSize: '1rem' }}>002. Set de Jarrones 'Aria'</h3>
-                                                <span className="badge bg-dark rounded-0 fw-normal" style={{ fontSize: '0.75rem' }}>Activa</span>
-                                            </div>
-                                            <p className="text-muted small mb-2" style={{ fontSize: '0.85rem', color: '#707070' }}>Cerámica artesanal / Acabado mate</p>
-                                            <div className="d-flex justify-content-between align-items-center border-top pt-2 mt-1">
-                                                <span className="small text-uppercase tracking-wider text-muted" style={{ fontSize: '0.75rem', letterSpacing: '0.05em' }}>Subasta Actual</span>
-                                            <span className="fw-bold text-dark" style={{ fontSize: '1.1rem' }}>$850 USD</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            {/*<!-- Producto 3 -->*/}
-                            <div className="col-md-4">
-                                <div className="card border-0 bg-transparent h-100">
-                                    <div className="ratio ratio-4x3 bg-light overflow-hidden" style={{ borderRadius: '4px' }}>
-                                        <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=600&q=80"
-                                            alt="Reloj Minimalista"
-                                            className="img-fluid object-fit-cover"
-                                            style={{ mixBlendMode: 'multiply' }}>
-                                        </img>
-                                    </div>
-                                    <div className="pt-3">
-                                        <div className="d-flex justify-content-between align-items-baseline">
-                                            <h3 className="h6 mb-1 fw-bold text-dark" style={{ fontSize: '1rem' }}>003. Reloj de Mano 'Luna'</h3>
-                                            <span className="badge bg-dark rounded-0 fw-normal" style={{ fontSize: '0.75rem' }}>Últimos minutos</span>
-                                        </div>
-                                        <p className="text-muted small mb-2" style={{ fontSize: '0.85rem', color: '#707070' }}>Mecanismo automático / Correa de piel</p>
-                                        <div className="d-flex justify-content-between align-items-center border-top pt-2 mt-1">
-                                            <span className="small text-uppercase tracking-wider text-muted" style={{ fontSize: '0.75rem', letterSpacing: '0.05em' }}>Subasta Actual</span>
-                                        <span className="fw-bold text-dark" style={{ fontSize: '1.1rem', color: '#d9534f' }}>$1,400 USD</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
                     </div >
                 </div >
