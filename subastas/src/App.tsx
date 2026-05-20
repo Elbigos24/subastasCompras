@@ -6,6 +6,7 @@ import Layout from './layouts/Layout'
 import Contacto from './views/contacto'
 import Home from './views/Home'
 import Carrito from './views/Carrito'
+import Detalles from './views/Detalles'
 
 function App() {
   
@@ -18,6 +19,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/contacto' element={<Contacto />} />
             <Route path='/carrito' element={<Carrito />} />
+            <Route path='/Detalles/:id' element={<Detalles />} />
           </Route>
         </Routes>
       </BrowserRouter>

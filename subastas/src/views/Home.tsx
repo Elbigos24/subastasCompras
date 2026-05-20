@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import Products from "../layouts/Products"
-import axios from "axios";
 
+import { api } from "../services/api";
 
 export default function Home() {
     const [data, setData] = useState([]);
-    const API_URL = import.meta.env.VITE_API_URL;
+    
     useEffect(() => {
         getData();
     }, [])
     const getData =async () => {
-        await axios.get(API_URL+'/products').then((res:any) => {
+        await api.get('/products').then((res:any) => {
             console.log(res.data);
             setData(res.data.data);
         }).catch((err:any) => {

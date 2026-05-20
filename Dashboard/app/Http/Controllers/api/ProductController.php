@@ -33,7 +33,7 @@ class ProductController extends Controller
 
     public function show($id)
     {
-        $Products = Product::user(["user"])->find($id);
+        $Products = Product::all()->find($id);;
         if (!$Products) {
             return response()->json(['message' => 'Product not found'], 404);
         }
