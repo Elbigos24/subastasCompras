@@ -49,7 +49,7 @@ export default function Detalles() {
        
         navigate("/carrito");
     }
-        
+
     const url_assets = import.meta.env.VITE_API_ASSETS;
     return (
         <>

@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 
 interface Props {
     item: any
+    onUpdateQuantity: (item: any, quantity: any) => void
+    onDeleteItem: (item: any) => void
 }
 
-export default function CarProduct({ item }: Props) {
+export default function CarProduct({ item, onUpdateQuantity, onDeleteItem }: Props) {
     const url_assets = import.meta.env.VITE_API_ASSETS;
     const [quantity, setQuantity] = useState(1);
     const [subtotal, setSubtotal] = useState(0);
@@ -17,6 +19,7 @@ export default function CarProduct({ item }: Props) {
         var calculo = item.price * _quantity
         setSubtotal(calculo);
         setQuantity(_quantity);
+        onUpdateQuantity(item, _quantity);
     }
     return (<>
 
@@ -34,7 +37,8 @@ export default function CarProduct({ item }: Props) {
                 <div>
                     <h3 className="h6 fw-bold mb-1 text-dark" style={{ fontSize: '1rem' }}>{item.name}</h3>
                     <p className="text-muted small mb-0" style={{ fontSize: '0.85rem' }}>Subasta finalizada • ID #8492</p>
-                    <button className="btn btn-link p-0 text-muted small text-decoration-none mt-2" style={{ fontSize: '0.8rem', border: 'none', background: 'transparent' }}>
+                    <button className="btn btn-link p-0 text-muted small text-decoration-none mt-2" style={{ fontSize: '0.8rem', border: 'none', background: 'transparent' }}
+                        onClick={() => { onDeleteItem(item); }}>
                         Eliminar
                     </button>
                 </div>

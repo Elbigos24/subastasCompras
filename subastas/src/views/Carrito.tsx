@@ -3,17 +3,52 @@ import { useNavigate } from "react-router-dom";
 import CarProduct from "../layouts/CarProduct";
 
 export default function Carrito() {
-        const [data, setData] = useState([]);
-        const navigate = useNavigate();
-        const seguirComprando = () => {
-            navigate("/");
-        }
+    const [data, setData] = useState([]);
+    const navigate = useNavigate();
+    const [subtotal, setSubtotal] = useState(0);
+    const seguirComprando = () => {
+        navigate("/");
+    }
     useEffect(() => {
-            if (localStorage.getItem("subastas_cart")) {
-                var items= JSON.parse(localStorage.getItem("subastas_cart") as string);
-                setData(items);
+        if (localStorage.getItem("subastas_cart")) {
+            var items = JSON.parse(localStorage.getItem("subastas_cart") as string);
+            var calculo = 0;
+            items.map((item: any) => {
+                calculo += (item.price * item.quantity);
+            })
+            setSubtotal(calculo);
+            setData(items);
+        }
+    }, [])
+    const onUpdateQuantity = (item: any, quantity: any) => {
+        {/*console.log(item,quantity);*/ }
+        var calculo = 0;
+        const data_copy=data.map((_item: any) => {
+            if(_item.id==item.id){
+             return{
+                ..._item,
+                quantity: quantity
+             }   
             }
-        }, [])
+            return _item
+        })
+        data_copy.map((_item: any) => {
+            calculo += (_item.price * _item.quantity);
+        })
+        setSubtotal(calculo);
+        setData(data_copy);
+        localStorage.setItem("subastas_cart", JSON.stringify(data_copy));
+    }
+    const onDeleteItem=(item:any)=>{
+        var calculo = 0;
+        const data_copy=data.filter((_item: any) => _item.id!=item.id);
+        data_copy.map((_item: any) => {
+            calculo += (_item.price * _item.quantity);
+        })
+        setSubtotal(calculo);
+        setData(data_copy);
+        localStorage.setItem("subastas_cart", JSON.stringify(data_copy));
+    }
     return (
         <>
             {/* Contenido Principal: Carrito de Compras Minimalista */}
@@ -40,12 +75,15 @@ export default function Carrito() {
                             </div>
 
                             {/* Artículos carrito */}
-                            {data.map((item:any) => <CarProduct item={item} key={item.id} />)}
+                            {data.map((item: any) => <CarProduct item={item} key={item.id} 
+                            onUpdateQuantity={onUpdateQuantity} 
+                            onDeleteItem={onDeleteItem}
+                            />)}
 
-                            <button className="btn w-100 text-white rounded-0 py-3" style={{ backgroundColor: '#000000', fontSize: '0.9rem', fontWeight: '500', border: 'none', transition: 'opacity 0.2s ease' } } onClick={seguirComprando}>
-                                    Seguir comprando
-                                    
-                                </button>
+                            <button className="btn w-100 text-white rounded-0 py-3" style={{ backgroundColor: '#000000', fontSize: '0.9rem', fontWeight: '500', border: 'none', transition: 'opacity 0.2s ease' }} onClick={seguirComprando}>
+                                Seguir comprando
+
+                            </button>
 
                         </div>
 
@@ -56,12 +94,12 @@ export default function Carrito() {
 
                                 <div className="d-flex justify-content-between mb-3 small text-muted">
                                     <span>Subtotal de adjudicación</span>
-                                    <span className="text-dark">$3,500 USD</span>
+                                    <span className="text-dark">${subtotal.toFixed(2)} MXN</span>
                                 </div>
 
                                 <div className="d-flex justify-content-between mb-3 small text-muted">
                                     <span>Tarifa de plataforma (2%)</span>
-                                    <span className="text-dark">$70 USD</span>
+                                    <span className="text-dark">${(subtotal * 0.02).toFixed(2)} MXN</span>
                                 </div>
 
                                 <div className="d-flex justify-content-between mb-4 small text-muted">
@@ -71,13 +109,12 @@ export default function Carrito() {
 
                                 <div className="d-flex justify-content-between border-top pt-3 mb-4">
                                     <span className="fw-bold text-dark">Total estimado</span>
-                                    <span className="fw-bold text-dark" style={{ fontSize: '1.2rem' }}>$3,570 USD</span>
+                                    <span className="fw-bold text-dark" style={{ fontSize: '1.2rem' }}>${(subtotal * 1.02).toFixed(2)} MXN</span>
                                 </div>
 
                                 <button className="btn w-100 text-white rounded-0 py-3" style={{ backgroundColor: '#000000', fontSize: '0.9rem', fontWeight: '500', border: 'none', transition: 'opacity 0.2s ease' }}>
                                     Proceder al pago seguro
                                 </button>
-
                                 <p className="text-center text-muted small mt-3 mb-0" style={{ fontSize: '0.75rem' }}>
                                     Transacciones encriptadas bajo protocolos SSL de alta seguridad.
                                 </p>
