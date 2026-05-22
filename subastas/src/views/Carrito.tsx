@@ -112,7 +112,7 @@ export default function Carrito() {
                                     <span className="fw-bold text-dark" style={{ fontSize: '1.2rem' }}>${(subtotal * 1.02).toFixed(2)} MXN</span>
                                 </div>
 
-                                <button className="btn w-100 text-white rounded-0 py-3" style={{ backgroundColor: '#000000', fontSize: '0.9rem', fontWeight: '500', border: 'none', transition: 'opacity 0.2s ease' }}>
+                                <button className="btn w-100 text-white rounded-0 py-3" style={{ backgroundColor: '#000000', fontSize: '0.9rem', fontWeight: '500', border: 'none', transition: 'opacity 0.2s ease' }} onClick={() => navigate("/protected")}>
                                     Proceder al pago seguro
                                 </button>
                                 <p className="text-center text-muted small mt-3 mb-0" style={{ fontSize: '0.75rem' }}>

@@ -17,4 +17,28 @@ export const apiAuth=axios.create({
     headers:{
         "Content-Type":'application/json'
     }
+    
 })
+//interceptors para agregar token
+apiAuth.interceptors.request.use((config) => {
+    const token = localStorage.getItem('acme_token') || sessionStorage.getItem('acme_token')
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+})
+
+//interceptors para agregar token en la respuesta
+apiAuth.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response && error.response.status === 401) {
+            localStorage.removeItem('acme_token')
+            localStorage.removeItem('acme_user')
+            sessionStorage.removeItem('acme_token')
+            sessionStorage.removeItem('acme_user')
+            window.location.href = '/login'
+        }
+        return Promise.reject(error)
+    }
+)
