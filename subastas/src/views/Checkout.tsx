@@ -198,7 +198,7 @@ export default function Checkout() {
                                                     <span className="text-muted extra-small">Producto Digital</span>
                                                 </div>
                                                 <div className="text-end fw-bold small">
-                                                    ${(parseFloat(item.price) * parseFloat(item.quantity)).toFixed(2)} USD
+                                                    ${(parseFloat(item.price) * parseFloat(item.quantity)).toFixed(2)} MXN
                                                 </div>
                                             </div>
                                         ))
@@ -213,11 +213,11 @@ export default function Checkout() {
 
                                 <div className="d-flex justify-content-between mb-2 text-muted small">
                                     <span>Subtotal</span>
-                                    <span>${subtotal.toFixed(2)} USD</span>
+                                    <span>${subtotal.toFixed(2)} MXN</span>
                                 </div>
                                 <div className="d-flex justify-content-between mb-2 text-muted small">
                                     <span>Impuestos (Estimado)</span>
-                                    <span>${(subtotal * 0.16).toFixed(2)} USD</span>
+                                    <span>${(subtotal * 0.16).toFixed(2)} MXN</span>
                                 </div>
                                 <div className="d-flex justify-content-between mb-4 text-muted small">
                                     <span>Envío (Digital)</span>
@@ -226,7 +226,7 @@ export default function Checkout() {
 
                                 <div className="d-flex justify-content-between h4 fw-bold pt-3 border-top">
                                     <span>Total</span>
-                                    <span className="text-accent">${(subtotal * 1.16).toFixed(2)} USD</span>
+                                    <span className="text-accent">${(subtotal * 1.16).toFixed(2)} MXN</span>
                                 </div>
 
                                 <div className="mt-4 p-3 bg-light text-muted extra-small">
